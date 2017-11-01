@@ -1,4 +1,4 @@
-#include <iostream>
+2#include <iostream>
 #include <Windows.h>
 #include <string>
 #include <iomanip>
@@ -16,7 +16,7 @@ int main()
 
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); //change color to white
 		cout << "Main Menu\n";
-		for (int i = 0; i < 3; ++i)
+		for (int i = 0; i < 2; ++i)
 		{
 			if (i == pointer)
 			{
