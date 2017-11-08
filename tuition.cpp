@@ -12,14 +12,14 @@ using namespace std;
 int main()
 {
 		//Declare and initialize variables and constants
-	const float RATE = 0.04;
-	const float INITIAL_COST = 115.0;
-	float costPerCredit = 0.0;
+	const auto RATE = 0.04;
+	const auto INITIAL_COST = 115.0;
+	auto costPerCredit = 0.0;
 			
 		//Display chart heading
 	cout << "Year\t\tCost per Credit\n-----------------------------\n";
 	costPerCredit = INITIAL_COST;
-		for (int year = 2008; year <= 2013; year++)
+		for (auto year = 2008; year <= 2013; year++)
 		{
 			cout << fixed << setprecision(2);
 			cout << year << "\t\t$" << costPerCredit << endl; //display year and costPerCredit
