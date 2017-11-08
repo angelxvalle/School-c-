@@ -1,4 +1,4 @@
-2#include <iostream>
+#include <iostream>
 #include <Windows.h>
 #include <string>
 #include <iomanip>
@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
 	string Menu[2] = { "1) Enter a student", "2) Quit" };
-	int pointer = 0;
+	auto pointer = 0;
 
 	while (true)
 	{
@@ -16,7 +16,7 @@ int main()
 
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); //change color to white
 		cout << "Main Menu\n";
-		for (int i = 0; i < 2; ++i)
+		for (auto i = 0; i < 2; ++i)
 		{
 			if (i == pointer)
 			{
