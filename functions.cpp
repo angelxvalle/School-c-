@@ -38,8 +38,8 @@ bool IsSquare(int);
 int main()
 {
 	//declare and initialize variables
-	int month = 0, day = 0, year = 0;
-	float circleRadius = 0, celsius = 0;
+	auto month = 0, day = 0, year = 0;
+	auto circleRadius = 0, celsius = 0;
 
 	//test PrintDate function
 	cout << "Testing PrintDate function...\n";
@@ -115,7 +115,7 @@ int Factorial(int n)
 {
 	int accumulator = 1;
 
-	for ( int i = 1; i <= n; i++)
+	for ( auto i = 1; i <= n; i++)
 	{
 		accumulator *= i;  
 	}
