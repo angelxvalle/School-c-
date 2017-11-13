@@ -1,0 +1,38 @@
+/*Project Name: schedule.cpp
+Name: Angel Valle
+Date: August 31, 2017
+Purpose: This program displays a schedule.
+*/
+
+#include "stdafx.h" //necessary for MVS 2017
+#include <iostream> //allows for input/output
+using namespace std; //opens the standard library
+
+int main()
+{
+	cout << "My Schedule:\n\n"; //Displays an intro
+
+								//Displays Monday's classes
+	cout << "Monday:\n";
+	cout << "10:30am - 12:15pm\tIntro to C++\n";
+	cout << "12:30pm - 2:15pm \tComposition\n\n";
+
+	//Displays Tuesday's classes
+	cout << "Tuesday:\n";
+	cout << "9:30am - 11:00am\tCollege Algebra\n";
+	cout << "1:00pm - 2:15pm \tBiology\n\n";
+
+	//Displays Wednesday classes
+	cout << "Wednesday:\n";
+	cout << "10:30am - 12:15pm\tIntro to C++\n";
+	cout << "12:30pm - 2:15pm \tComposition\n\n";
+
+	//Displays Thursday's classes
+	cout << "Thursday:\n";
+	cout << "9:30am - 11:00am\tCollege Algebra\n";
+	cout << "1:00pm - 2:15pm \tBiology\n\n";
+
+
+	return 0;
+}
+
