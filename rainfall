@@ -1,0 +1,57 @@
+/*  Rainfall
+	Angel Valle
+	October 12, 2017
+	This program calculates total rainfall and average rainfall over a period of years.
+*/
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+		//Declare and initialize variables
+	int years = 0;
+	double rainFall = 0.0, totalRain = 0.0, avgRain = 0.0;
+
+		//display intro
+	cout << "Welcome to the Rainfall Calculator!\n\n"; 
+		do
+		{
+			//prompt years
+			cout << "Enter number of years: ";
+			cin >> years; 
+			if (years < 1)
+				//display error message
+				cout << "Enter an integer greater than 0.\n"; 
+		} while (years < 1);
+
+		for (int a = 1; a <= years; a++)
+			for (int b = 1; b <= 12; b++)
+				do
+				{
+					//prompt for rainFall
+					cout << "Enter amount of rainfall for month " << b << ": ";
+					cin >> rainFall;
+					if (rainFall < 0)
+						//display error
+						cout << "\nEnter a positive number\n"; 
+
+					//calculate totalRain
+					totalRain += rainFall; 
+				}
+					while (rainFall < 0);
+						
+		//calculate avgRain
+		avgRain = totalRain / (years * 12);
+
+		//display results
+		cout << "\n*********************************************************";
+		cout << "\n\nTotal months: " << years * 12 << endl;
+		cout << fixed << setprecision(1) << "Total amount of rainfall is: " << totalRain << " inches\n";
+		cout << fixed << setprecision(1) << "Average amount of rainfall is: " << avgRain << " inches\n";
+
+    return 0;
+}
+
