@@ -1,0 +1,40 @@
+/*Project Name : restaurant.cpp
+Name : Angel Valle
+Date : August 31, 2017
+Purpose : Prompts user for the meal cost
+Calculates tip, tax and total cost of that meal.
+*/
+
+#include "stdafx.h"
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main()
+{
+	//Declare and initialize variables
+	double mealCost = 0.0, tax = 0.0, tip = 0.0, totalCost = 0.0;
+
+	cout << "Welcome to Angel's Cafe\n\n"; //Display intro
+
+	cout << "Please enter the total cost of the meal: $"; //Prompt user for mealCost
+	cin >> mealCost;
+
+	tax = 0.07 * mealCost; //Calculates tax
+
+	tip = 0.2 * mealCost; //Calculates tip
+
+	totalCost = tax + tip + mealCost; //Calculates totalCost
+
+
+									  //Displays results
+	cout << fixed << setprecision(2); //Displays answers with two decimal places.
+	cout << "Meal Cost:" << setw(10) << "$" << mealCost << endl;
+	cout << "Tax:" << setw(16) << "$" << tax << endl;
+	cout << "Tip:" << setw(16) << "$" << tip << endl;
+	cout << "Total Cost:" << setw(9) << "$" << totalCost << endl;
+
+
+	return(0);
+}
+
