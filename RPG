@@ -5,11 +5,9 @@ Purpose: This program is a role playing game that prompts users to answer questi
 and points are awarded depending on the answer
 */
 
-//function protypes
 
-//return type: void
-//parameters: 
 #include "stdafx.h"
+#include<fstream> //library file needed for file input and output
 #include <iostream> 
 #include <string>
 #include <ctime> //needed for random number generation
@@ -20,8 +18,16 @@ using namespace std;
 int main()
 {
 	//Declare and initialize variables
-	string name = " ";
+	string name = " ", highscoreName = " ";
 	char menuChoice1 = ' ';
+	char character = ' ', skill = ' ', weapon = ' ', gadget = ' ', location = ' ';
+	int skillPoints = 0, locationPoints = 0, weaponPoints = 0, gadgetPoints = 0, total = 0, highscorePoints = 0;
+
+	//Declare file pointer for input
+	ifstream infile;
+
+	//Declare file pointer
+	ofstream outfile; //ofstream for file output
 
 	//Display Intro
 	cout << "Welcome to Space Age\n";
@@ -48,7 +54,7 @@ int main()
 			//Diplay Rules
 			system("cls");
 			cout << "Use your keypad to input numbers between 1-5 to answer select your character and their specialties. At the end of the game your points will be totaled and displayed.\n";
-			system("pause"); 
+			system("pause");
 		}
 
 		else if (menuChoice1 == '2')
@@ -61,7 +67,7 @@ int main()
 
 				" Civil war strikes the galaxy, which is ruled by Lord Godfrey." <<
 
-				" Terrified, a beautiful human known as Elizabeth Trok flees the Empire, with her protector, " << name << 
+				" Terrified, a beautiful human known as Elizabeth Trok flees the Empire, with her protector, " << name <<
 
 				" They head for Imperial City on the planet Andromeda. When they finally arrive, a fight breaks out. " << name << " uses his powerful magic to defend Doris. " <<
 
@@ -70,30 +76,26 @@ int main()
 				" They encounter a tribe of imps. " << name << " is attacked and the woman is captured by the imps and taken back to Imperial City. " <<
 
 				name << " must fight to save Doris \n";
-			system("pause"); 
-			
+			system("pause");
 
 
-			//declare and initialize variables
-			char character = ' ', skill = ' ', weapon = ' ', gadget = ' ', location = ' ';
-			int skillPoints = 0, locationPoints = 0, weaponPoints = 0, gadgetPoints = 0, total = 0; 
 			srand(time(NULL)); //seed random number generator - only needs to be done once
 
 
-		    //display character choice
+							   //display character choice
 			do
 			{
 				system("cls");
 				cout << "Choose a class: \n\n";
 				cout << "1) Diviner Miner - More divine than your average miner\n\n";
-				cout << "2) Exorcist Bard - ♫I banish, theeeeee, As I count to threeeeee♫\n\n"; 
+				cout << "2) Exorcist Bard - ♫I banish, theeeeee, As I count to threeeeee♫\n\n";
 				cout << "3) Forge Knight - So, you're a knight? Yup. And you just sit here, forging all day? Yup. You are the most useless knight, ever.\n\n";
 				cout << "4) Impure Gambler Killer - He takes from the rich and keeps it for himself.\n\n";
 				cout << "5) Paladin Messenger - When you gotta tell your paladin friend in another town about the demon you just killed.\n\n";
 				cin >> character;
 
 				//if (character < 1 || character > 5)
-					//cout << "Please enter a digit between 1-5\n"; //display error message
+				//cout << "Please enter a digit between 1-5\n"; //display error message
 			} while (character < '1' || character > '5');
 
 
@@ -131,13 +133,13 @@ int main()
 			} while (skill < '1' || skill > '5');
 
 			skillPoints = rand() % 5 + 1; //include this code whenever you want a random number generated
-												 //in general: x = rand() % (maxValue - minValue + 1) + minValue
+										  //in general: x = rand() % (maxValue - minValue + 1) + minValue
 
-			total += skillPoints; 
-			cout << "You have " << skillPoints << " points\n"; //display the random number
+			total += skillPoints;
+			cout << "You have earned " << skillPoints << " points\n"; //display the random number
 			cout << "Total Points: " << total << endl;
 			Sleep(1000);
-			
+
 
 			//display weapon choice
 			do
@@ -171,17 +173,46 @@ int main()
 			} while (gadget < '1' || gadget > '3');
 
 			gadgetPoints = rand() % 10 + 1; //include this code whenever you want a random number generated
-												 //in general: x = rand() % (maxValue - minValue + 1) + minValue
+											//in general: x = rand() % (maxValue - minValue + 1) + minValue
 
 			total += gadgetPoints;
-			cout << "You have earned " << gadgetPoints << " points\n"; //display the random number
-			Sleep(1000);
+			system("cls"); 
+
+			//Open file for input
+			infile.open("highscores.txt", ios::in);
+
+			if (!infile)
+			{
+				cout << "Error! File does not exist!!\n";
+			}
+
+			//Priming read to read in the first record to make sure that there is data in the file
+			infile >> highscoreName >> highscorePoints;
+
+
+			if (highscorePoints < total)
+			{
+
+				//Open file for output
+
+				outfile.open("highscores.txt", ios::out); //out will create the file if it does not yet exist and will overwrite
+												   //the file if it already exists.
+
+												   //Write data to file
+				outfile << name << " " << total << endl;
+
+				//Close file
+				outfile.close();
+
+				cout << "\nCongratulations you have beaten the highscore!\n";
+
+			}
+
 
 
 			//display results
-			system("cls");
-			cout << "Congratulations you have saved Doris!\n\n\nYou have achieved: " << total << " points.\n";
-			system("pause"); 
+			cout << "\nCongratulations you have saved Doris!\n\nYou have achieved: " << total << " points.\n";
+			system("pause");
 
 
 		}
