@@ -1,0 +1,65 @@
+// ConsoleApplication1.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	//declare and initialize variables
+	string names[4];
+	double hoursWorked[4], hourlyPay[4], weeklyEarnings[4]; 
+
+	//display intro
+	cout << "Hello Welcome to the Employee Weekly Earnings calculator!\n";
+
+	//prompt for names, hours worked and hourly pay for 4 employees.
+	for (int i = 0; i <= 3; i++)
+	{
+		//prompt name
+		cout << "Employee's name: ";
+		cin >> names[i];
+
+		//prompt hours worked
+		cout << "\nHours worked: ";
+		cin >> hoursWorked[i];
+
+		//prompt hourly pay
+		cout << "\nHourly pay: ";
+		cin >> hourlyPay[i];
+	}
+	//calculate weekly earning
+	for (int n = 0; n <= 3; n++)
+	{
+		weeklyEarnings[n] = hoursWorked[n] * hourlyPay[n];
+	}
+				//display results
+	cout << "Name\tHours 
+		Worked\tHourly Pay\tWeekEarnings\n";
+	cout << "-----------------------------------------------------\n";
+	for (int x = 0; x <= 3; x++)
+	{
+		//display name[x]
+		cout << names[x] << "    ";
+
+		//display hoursWorked[x]
+		cout << hoursWorked[x] << "\t\t$";
+
+		//display hourlyPay[x]
+		cout << hourlyPay[x] << "\t  $";
+
+		//display weeklyEarnings[x]
+		cout << weeklyEarnings << endl;
+
+
+	}
+
+		return 0;
+
+
+}
+
