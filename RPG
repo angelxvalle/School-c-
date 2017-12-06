@@ -3,15 +3,80 @@ Name: Angel Valle, Maaz Malik, Claudy Durocher
 Date: September 9, 2017
 Purpose: This program is a role playing game that prompts users to answer questions
 and points are awarded depending on the answer
+UPDATE: added functions to open and edit text files.
 */
 
 
-#include "stdafx.h"
 #include<fstream> //library file needed for file input and output
 #include <iostream> 
 #include <string>
 #include <ctime> //needed for random number generation
 #include <windows.h>
+
+//function prototypes
+
+//return type: void
+//parameters: none
+//purpose greet the user 
+void Greet();
+
+//return type: 1 char
+//parameters: 1 char
+//purpose: display mainmenu, prompt for and return the users choice
+char MainMenu();
+
+//return type: void
+//parameters: none
+//purpose: Display the storyline
+void DisplayStoryline();
+
+
+//return type: void
+//parameters: none
+//purpose: Display the rules
+void DisplayRules(); 
+
+//return type: void
+//parameters: none
+//purpose: display submenu, prompt for user's choice.
+void SubMenu1();
+
+//return type: 1 char
+//parameters: 1 char
+//purpose: display submenu, prompt for user's choice and return the point value.
+int SubMenu2();
+
+//return type: 1 char
+//parameters: 1 char
+//purpose: display submenu, prompt for user's choice and return the point value.
+int SubMenu3();
+
+//return type: 1 char
+//parameters: 1 char
+//purpose: display submenu, prompt for user's choice and return the point value.
+int SubMenu4();
+
+//return type: 1 char
+//parameters: 1 char
+//purpose: display submenu, prompt for user's choice and return the point value.
+int SubMenu5();
+
+//return type: void
+//parameters: 1 string array and 1 int array
+//purpose: This function should read in and store the high score names and scores in a parallel array
+void ReadInScores(string[], int[]);
+
+//return type: void
+//parameters: 1 string array, 1 int array, 1 string, 1 int
+//purpose: This function should compare the user's score to the highscores that have been stored and should replace
+//the parallel arrays as necessary to keep the highest 3 scores with the corresponding names in the parrallel arrays.
+void CompareScores(string[], int[], string, int);
+
+//return type: void
+//parameters: 1 string array and 1 int array
+//purpose: This function should open the high score list and replace the file with the values that have been stroed in the parallel arrays.
+void ReplaceScores(string[], int[]);
+
 
 using namespace std;
 
@@ -19,8 +84,7 @@ int main()
 {
 	//Declare and initialize variables
 	string name = " ", highscoreName = " ";
-	char menuChoice1 = ' ';
-	char character = ' ', skill = ' ', weapon = ' ', gadget = ' ', location = ' ';
+	char menuChoice1 = ' ', character = ' '; 
 	int skillPoints = 0, locationPoints = 0, weaponPoints = 0, gadgetPoints = 0, total = 0, highscorePoints = 0;
 
 	//Declare file pointer for input
@@ -29,154 +93,54 @@ int main()
 	//Declare file pointer
 	ofstream outfile; //ofstream for file output
 
-	//Display Intro
-	cout << "Welcome to Space Age\n";
-	cout << "Enter your name: ";
-
-	//prompt name
+    //Display Intro
+	Greet();
 	cin >> name;
-
-
 
 	do
 	{
-		//Display main menu
-		system("cls");
-		cout << "1) See Rules\n";
-		cout << "2) Play Game\n";
-		cout << "3) Exit\n";
-
-		//Prompt for menuchoice1
-		cin >> menuChoice1;
+	//display Menu
+	menuChoice1= MainMenu();
 
 		if (menuChoice1 == '1')
 		{
-			//Diplay Rules
-			system("cls");
-			cout << "Use your keypad to input numbers between 1-5 to answer select your character and their specialties. At the end of the game your points will be totaled and displayed.\n";
-			system("pause");
+			DisplayRules();
+
 		}
 
 		else if (menuChoice1 == '2')
 		{
-			//Display storyline
-			system("cls");
-			cout << "A long, long time ago in a galaxy far, far away...\n" <<
-
-				"After leaving the planet Lavalulu, a group of trolls fly toward a distant speck. The speck gradually resolves into a frozen, space bungalow." <<
-
-				" Civil war strikes the galaxy, which is ruled by Lord Godfrey." <<
-
-				" Terrified, a beautiful human known as Elizabeth Trok flees the Empire, with her protector, " << name <<
-
-				" They head for Imperial City on the planet Andromeda. When they finally arrive, a fight breaks out. " << name << " uses his powerful magic to defend Doris. " <<
-
-				name << " and Doris decide it's time to leave Andromeda and steal a Falcon to shoot their way out." <<
-
-				" They encounter a tribe of imps. " << name << " is attacked and the woman is captured by the imps and taken back to Imperial City. " <<
-
-				name << " must fight to save Doris \n";
-			system("pause");
-
+			DisplayStoryline();
 
 			srand(time(NULL)); //seed random number generator - only needs to be done once
 
-
-							   //display character choice
-			do
-			{
-				system("cls");
-				cout << "Choose a class: \n\n";
-				cout << "1) Diviner Miner - More divine than your average miner\n\n";
-				cout << "2) Exorcist Bard - ♫I banish, theeeeee, As I count to threeeeee♫\n\n";
-				cout << "3) Forge Knight - So, you're a knight? Yup. And you just sit here, forging all day? Yup. You are the most useless knight, ever.\n\n";
-				cout << "4) Impure Gambler Killer - He takes from the rich and keeps it for himself.\n\n";
-				cout << "5) Paladin Messenger - When you gotta tell your paladin friend in another town about the demon you just killed.\n\n";
-				cin >> character;
-
-				//if (character < 1 || character > 5)
-				//cout << "Please enter a digit between 1-5\n"; //display error message
-			} while (character < '1' || character > '5');
-
+		    //display character choice
+			SubMenu1(); 
 
 
 			//display location choice
-			do
-			{
-				system("cls");
-				cout << "Choose a location: \n\n";
-				cout << "1) City: the city of might looks like the typical city you're used to on planet Earth, but remember this is another planet, things will be different.\n\n"; //display Desert and description(1)
-				cout << "2) Desert: beside the different atmosphere, the dessert is like any other dessert, danger is unevitable, you will encounter different species of plants and animals, so be careful where you step and what you touch.\n\n";//display 	City and description(2)
-				cout << "3) Suburbs: things like houses, trees, school will be present but do not get caught up by the similarities.\n\n"; //display Suburbs and description(3)
-				cin >> location; //prompt for input
-			} while (location < '1' || location > '3');
-
-			locationPoints = rand() % 10 + 1; //include this code whenever you want a random number generated
-
+			locationPoints = SubMenu2();
 			total += locationPoints;
-			cout << "You have earned " << locationPoints << " points\n"; //display the random number
-			cout << "Total Points: " << total << endl;
+			cout << "Total: " << total;
 			Sleep(1000);
-
 
 			//display skill choice
-			do
-			{
-				system("cls");
-				cout << "Choose a magic style: \n\n";
-				cout << "1) This magical style focuses on living tissue, specifically using it to create weapons.It requires clay for forming images.This style of magic draws energies from mysterious nonhuman beings.\n\n";
-				cout << "2) This magical style focuses on spirits. It requires songs of power and offerings for supernatural forces. Ancestral spirits provide the power for this form of magic.\n\n";
-				cout << "3) This magical style focuses on earth, specifically using it to provide transportation. It requires dances and complex magical calculations.\n\n";
-				cout << "4) This magical style focuses on conjuring. It requires special poems, specific bodily postures, and various gemstones.\n\n";
-				cout << "5) This magical style focuses on thought, specifically using it to create weapons.\n\n";
-				cin >> skill;
-			} while (skill < '1' || skill > '5');
-
-			skillPoints = rand() % 5 + 1; //include this code whenever you want a random number generated
-										  //in general: x = rand() % (maxValue - minValue + 1) + minValue
-
+			skillPoints = SubMenu3();
 			total += skillPoints;
-			cout << "You have earned " << skillPoints << " points\n"; //display the random number
-			cout << "Total Points: " << total << endl;
+			cout << "Total: " << total;
 			Sleep(1000);
-
 
 			//display weapon choice
-			do
-			{
-				system("cls");
-				cout << "Choose a weapon: \n\n";
-				cout << "1) Power Axe: double-headed hand axe, a more-powerful version of the chainsword. It struck fast and could damage some of the heavily armored foes that the chainsword couldn't.\n\n";//display Power Axe and description(1)
-				cout << "2) Plasma Gun: This weapon fires two types of shots. The first is a rapid-fire bolt of plasma that gradually builds up the weapon's internal temperature. The second is a charged shot that fires a plasma grenade that explodes after sticking to a target.\n\n";//display Plasma Gun and description(2)
-				cout << "3) Bolter: this weapon is pretty straightforward, with a high rate of fire and decent damage against lightly armored targets. the standard-issue bolter fires miniature rockets that burrow into and explode inside their targets.\n\n"; //display Bolter and description(3)
-				cin >> weapon; //prompt for input
-			} while (weapon < '1' || weapon > '3');
-
-			weaponPoints = rand() % 9 + 1; //include this code whenever you want a random number generated
-										   //in general: x = rand() % (maxValue - minValue + 1) + minValue
-
+			weaponPoints = SubMenu4();
 			total += weaponPoints;
-			cout << "You have earned " << weaponPoints << " points\n"; //display the random number
-			cout << "Total Points: " << total << endl;
+			cout << "Total: " << total;
 			Sleep(1000);
 
-
 			//display gadget choice
-			do
-			{
-				system("cls");
-				cout << "Choose a gadget: \n\n";//display Jump Pack and description(1)
-				cout << "1) Jump Pack: This gadget can cause you to move slow in your journey but it lets you fly into the air or quickly jet around at ground level.\n\n";//display Multi - Vision Goggles and description(2)
-				cout << "2) Multi-Vision Goggles: Aside from helping detect enemy movement, these goggles can also scan specfic objects, and inform us of what they do.\n\n";//display Portal Gun and description(3)
-				cout << "3) Portal Gun: This gadget allows for the transportation and manipulation of the world. It allows you to transport to places faster as long as the place of destination is known or you could end up lost.\n\n";
-				cin >> gadget; //prompt for input
-			} while (gadget < '1' || gadget > '3');
-
-			gadgetPoints = rand() % 10 + 1; //include this code whenever you want a random number generated
-											//in general: x = rand() % (maxValue - minValue + 1) + minValue
-
+			gadgetPoints = SubMenu5(); 
 			total += gadgetPoints;
-			system("cls"); 
+			cout << "Total: " << total << endl;
+			system("pause");
 
 			//Open file for input
 			infile.open("highscores.txt", ios::in);
@@ -196,25 +160,20 @@ int main()
 				//Open file for output
 
 				outfile.open("highscores.txt", ios::out); //out will create the file if it does not yet exist and will overwrite
-												   //the file if it already exists.
+														  //the file if it already exists.
 
-												   //Write data to file
+														  //Write data to file
 				outfile << name << " " << total << endl;
 
 				//Close file
 				outfile.close();
 
 				cout << "\nCongratulations you have beaten the highscore!\n";
-
 			}
-
-
 
 			//display results
 			cout << "\nCongratulations you have saved Doris!\n\nYou have achieved: " << total << " points.\n";
 			system("pause");
-
-
 		}
 
 		//Exit function
@@ -225,16 +184,206 @@ int main()
 			cout << "Invalid Input: Please pick a number between 1-3.\n";
 	} while (menuChoice1 != '3');
 
-
-
-
-
-
-
-
-
-
 	return (0);
+
+
+}
+
+
+//function definitions
+
+//purpose greet the user and prompt name
+void Greet()
+{
+	cout << "Welcome to Space Age\n";
+	cout << "Enter your name: ";
+}
+
+//purpose: display mainmenu, prompt for and return the users choice
+char MainMenu()
+{
+	char m = ' ';
+		//Display main menu
+		system("cls");
+		cout << "1) See Rules\n";
+		cout << "2) Play Game\n";
+		cout << "3) Exit\n";
+
+		//Prompt for menuchoice1
+		cin >> m;
+	return m;
+
+}
+
+
+//purpose: Display the rules
+void DisplayRules() 
+{
+	//Diplay Rules
+	system("cls");
+	cout << "Use your keypad to input numbers between 1-5 to answer select your character and their specialties. At the end of the game your points will be totaled and displayed.\n";
+	system("pause");
+
+}
+
+//purpose: Display the rules
+void DisplayStoryline()
+{
+	//Display storyline
+	system("cls");
+	cout << "A long, long time ago in a galaxy far, far away...\n" <<
+
+		"After leaving the planet Lavalulu, a group of trolls fly toward a distant speck. The speck gradually resolves into a frozen, space bungalow." <<
+
+		" Civil war strikes the galaxy, which is ruled by Lord Godfrey." <<
+
+		" Terrified, a beautiful human known as Elizabeth Trok flees the Empire, with her protector, " <<
+
+		" They head for Imperial City on the planet Andromeda. When they finally arrive, a fight breaks out. You use your powerful magic to defend Doris. " <<
+
+		"You and Doris decide it's time to leave Andromeda and steal a Falcon to shoot their way out." <<
+
+		" They encounter a tribe of imps. You are now being attacked and Doris is captured by the imps and taken back to Imperial City. "; 
+	system("pause");
+
+}
+
+
+//purpose: display submenu, prompt for user's choice and return the point value.
+void SubMenu1()
+{
+	char c; 
+	do
+	{
+		system("cls");
+		cout << "Choose a class: \n\n";
+		cout << "1) Diviner Miner - More divine than your average miner\n\n";
+		cout << "2) Exorcist Bard - ♫I banish, theeeeee, As I count to threeeeee♫\n\n";
+		cout << "3) Forge Knight - So, you're a knight? Yup. And you just sit here, forging all day? Yup. You are the most useless knight, ever.\n\n";
+		cout << "4) Impure Gambler Killer - He takes from the rich and keeps it for himself.\n\n";
+		cout << "5) Paladin Messenger - When you gotta tell your paladin friend in another town about the demon you just killed.\n\n";
+		cin >> c;
+
+		//if (character < 1 || character > 5)
+		//cout << "Please enter a digit between 1-5\n"; //display error message
+	} while (c < '1' || c > '5');
+}
+
+
+//purpose: display submenu, prompt for user's choice and return the point value.
+int SubMenu2()
+{
+	//declare and initialize variables
+	char l = ' ';
+	int locationPoints = 0;
+
+	do
+	{
+		system("cls");
+		cout << "Choose a location: \n\n";
+		cout << "1) City: the city of might looks like the typical city you're used to on planet Earth, but remember this is another planet, things will be different.\n\n"; //display Desert and description(1)
+		cout << "2) Desert: beside the different atmosphere, the dessert is like any other dessert, danger is unevitable, you will encounter different species of plants and animals, so be careful where you step and what you touch.\n\n";//display 	City and description(2)
+		cout << "3) Suburbs: things like houses, trees, school will be present but do not get caught up by the similarities.\n\n"; //display Suburbs and description(3)
+		cin >> l; //prompt for input
+	} while (l < '1' || l > '3');
+
+	locationPoints = rand() % 10 + 1; //include this code whenever you want a random number generated
+
+	cout << "You have earned " << locationPoints << " points\n"; //display the random number
+	return locationPoints; 
+}
+
+
+//purpose: display submenu, prompt for user's choice and return the point value.
+int SubMenu3()
+{
+	char s = ' ';
+	int skillPoints = 0;
+
+	do
+	{
+		system("cls");
+		cout << "Choose a magic style: \n\n";
+		cout << "1) This magical style focuses on living tissue, specifically using it to create weapons.It requires clay for forming images.This style of magic draws energies from mysterious nonhuman beings.\n\n";
+		cout << "2) This magical style focuses on spirits. It requires songs of power and offerings for supernatural forces. Ancestral spirits provide the power for this form of magic.\n\n";
+		cout << "3) This magical style focuses on earth, specifically using it to provide transportation. It requires dances and complex magical calculations.\n\n";
+		cout << "4) This magical style focuses on conjuring. It requires special poems, specific bodily postures, and various gemstones.\n\n";
+		cout << "5) This magical style focuses on thought, specifically using it to create weapons.\n\n";
+		cin >> s;
+	} while (s < '1' || s > '5');
+
+	skillPoints = rand() % 5 + 1; //include this code whenever you want a random number generated
+								  //in general: x = rand() % (maxValue - minValue + 1) + minValue
+
+	cout << "You have earned " << skillPoints << " points\n"; //display the random number
+	return skillPoints;
+
+}
+
+
+//purpose: display submenu, prompt for user's choice and return the point value.
+int SubMenu4()
+{
+	char w = ' ';
+	int weaponPoints = 0;
+
+	do
+	{
+		system("cls");
+		cout << "Choose a weapon: \n\n";
+		cout << "1) Power Axe: double-headed hand axe, a more-powerful version of the chainsword. It struck fast and could damage some of the heavily armored foes that the chainsword couldn't.\n\n";//display Power Axe and description(1)
+		cout << "2) Plasma Gun: This weapon fires two types of shots. The first is a rapid-fire bolt of plasma that gradually builds up the weapon's internal temperature. The second is a charged shot that fires a plasma grenade that explodes after sticking to a target.\n\n";//display Plasma Gun and description(2)
+		cout << "3) Bolter: this weapon is pretty straightforward, with a high rate of fire and decent damage against lightly armored targets. the standard-issue bolter fires miniature rockets that burrow into and explode inside their targets.\n\n"; //display Bolter and description(3)
+		cin >> w; //prompt for input
+	} while (w < '1' || w > '3');
+
+	weaponPoints = rand() % 9 + 1; //include this code whenever you want a random number generated
+								   //in general: x = rand() % (maxValue - minValue + 1) + minValue
+
+	cout << "You have earned " << weaponPoints << " points\n"; //display the random number
+	return weaponPoints; 
+
+}
+
+//purpose: display submenu, prompt for user's choice and return the point value.
+int SubMenu5()
+{
+	char g = ' ';
+	int gadgetPoints = 0;
+
+	do
+	{
+		system("cls");
+		cout << "Choose a gadget: \n\n";//display Jump Pack and description(1)
+		cout << "1) Jump Pack: This gadget can cause you to move slow in your journey but it lets you fly into the air or quickly jet around at ground level.\n\n";//display Multi - Vision Goggles and description(2)
+		cout << "2) Multi-Vision Goggles: Aside from helping detect enemy movement, these goggles can also scan specfic objects, and inform us of what they do.\n\n";//display Portal Gun and description(3)
+		cout << "3) Portal Gun: This gadget allows for the transportation and manipulation of the world. It allows you to transport to places faster as long as the place of destination is known or you could end up lost.\n\n";
+		cin >> g; //prompt for input
+	} while (g < '1' || g > '3');
+
+	gadgetPoints = rand() % 10 + 1; //include this code whenever you want a random number generated
+									//in general: x = rand() % (maxValue - minValue + 1) + minValue
+	return gadgetPoints;
+
+}
+
+//purpose: This function should read in and store the high score names and scores in a parallel array
+void ReadInScores(string[], int[])
+{
+
+
+}
+
+//the parallel arrays as necessary to keep the highest 3 scores with the corresponding names in the parrallel arrays.
+void CompareScores(string[], int[], string, int)
+{
+
+
+}
+
+//purpose: This function should open the high score list and replace the file with the values that have been stroed in the parallel arrays.
+void ReplaceScores(string[], int[])
+{
 
 
 }
